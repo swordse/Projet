@@ -8,8 +8,9 @@
 import Foundation
 
 
-class Character {
+class Character: Team {
     
+
     var kind: Kind
     var name: String
     var health: Int

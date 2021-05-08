@@ -9,6 +9,10 @@ import Foundation
 
 class Team {
     
-    var teamOne: [Character] = []
-    var teamTwo: [Character] = []
+    static var teamOne: [Character] = []
+    static var teamTwo: [Character] = []
+    
+    
+    static var teamOneName: String = ""
+    static var teamTwoName: String = ""
 }

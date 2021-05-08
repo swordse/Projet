@@ -9,6 +9,29 @@ import Foundation
 
 class Fight: Game {
     
+    
+    // array of characters which will be affected to teamOne or teamTwo depending of the state of the game
+    var fightingCharacters = [Character]()
+    var opponentCharacters = [Character]()
+    
+    // index of the fighter and opponent choosen
+    var fighterIndex = Int()
+    var opponentIndex = Int()
+    var characterToHealIndex = Int()
+    
+    //
+    var fighter: Character {
+        fightingCharacters[fighterIndex]
+    }
+    var opponent: Character {
+        opponentCharacters[opponentIndex]
+    }
+    
+    var characterToHeal: Character {
+        fightingCharacters[characterToHealIndex]
+    }
+    
+    
     var numberOfTurn: Int = 1
     
     var magicBox = false
@@ -18,17 +41,19 @@ class Fight: Game {
         
         // check which player is playing and assign the corresponding characters
         if Game.playerOneIsPlaying {
-            fightingCharacters = Game.teamOne
-            opponentCharacters = Game.teamTwo
+            fightingCharacters = Team.teamOne
+            opponentCharacters = Team.teamTwo
         } else {
-            fightingCharacters = Game.teamTwo
-            opponentCharacters = Game.teamOne
+            fightingCharacters = Team.teamTwo
+            opponentCharacters = Team.teamOne
         }
+        
+        // Player choose his fighter
         Setting.spacer()
         print("\(Game.playerOneIsPlaying ? "Player ONE:" : "Player TWO:") choose your fighter for this round:"
         + "\n")
         showCharactersChoice(characters: fightingCharacters)
-        fighterIndex = readIndex()
+        fighterIndex = readIndex(characters: fightingCharacters)
         magicBox = MagicBox().findBox()
         
         if magicBox {
@@ -36,28 +61,27 @@ class Fight: Game {
                     + "------   You have found a MAGIC BOX which contains a \(fighter.magicWeapon). It can damage \(fighter.magicWeapon.rawValue) points.   ------"
             + "\n")
         }
-        
+        // if fighter is a mage : choose the teamate to heal
         if fighter.kind == .mage {
             Setting.spacer()
             print("\(Game.playerOneIsPlaying ? "Player One:" : "Player Two:") choose the character of your team you want to heal:"
                     + "\n")
             showCharactersChoice(characters: fightingCharacters)
-            characterToHealIndex = readIndex()
+            characterToHealIndex = readIndex(characters: fightingCharacters)
             fightResult()
         } else {
+            // if fighter is not a mage: choose the opponent character
             Setting.spacer()
             print("\(Game.playerOneIsPlaying ? "Player One:" : "Player Two:") choose your opponnent :"
                 + "\n")
             showCharactersChoice(characters: opponentCharacters)
-            opponentIndex = readIndex()
+            opponentIndex = readIndex(characters: opponentCharacters)
             fightResult()
         }
         
     }
     // show the fighter or opponent characters
     func showCharactersChoice(characters: [Character])  {
-        // Player choose among his characters
-//        print(fightingCharacters.count)
         var number = 1
         for character in characters {
             if character.isAlive == true {
@@ -67,20 +91,28 @@ class Fight: Game {
         }
     }
     // read the index of the choosen character
-    func readIndex() -> Int {
+    func readIndex(characters: [Character]) -> Int {
+        let maxNumber = characters.count
         var index = Int()
         if let choice = readLine() {
-            switch choice {
-            case "1":
+            if let intChoice = Int(choice) {
+                if intChoice > maxNumber || intChoice <= 0 {
+                    print("This choice is impossible. Choose again:")
+                    readIndex(characters: characters)
+                }
+            
+            switch intChoice {
+            case 1:
                 index = 0
-            case "2":
+            case 2:
                 index = 1
-            case "3":
+            case 3:
                 index = 2
             default:
                 print("YOU MUST CHOOSE A NUMBER BETWEEN 1 OR 3.")
-                readIndex()
+                readIndex(characters: characters)
             }
+        }
         }
         return index
     }
@@ -121,7 +153,7 @@ class Fight: Game {
         Setting.line()
         print("OHHH MY GOSH!!!! \(opponent.name) has been killed!!!")
         Setting.line()
-        Game.playerOneIsPlaying ? Game.teamTwo.remove(at: opponentIndex) : Game.teamOne.remove(at: opponentIndex)
+        Game.playerOneIsPlaying ? Team.teamTwo.remove(at: opponentIndex) : Team.teamOne.remove(at: opponentIndex)
     }
         Game.playerOneIsPlaying.toggle()
         numberOfTurn += 1
@@ -130,35 +162,35 @@ class Fight: Game {
     
     // check if a player has won ie. if all characters of a team are dead
     func checkWin() {
-        if Game.teamOne.allSatisfy({ character in
+        if Team.teamOne.allSatisfy({ character in
             character.isAlive == false
         }) {
             Setting.line()
             Setting.line()
             print("\n"
-                  + "\n-------   TEAM ONE WINS !!!!   -------"
+                    + "\n-------   \(Team.teamOneName.uppercased()) WINS !!!!   -------"
                     + "\n-------   CONGRATULATIONS   -------")
             Setting.line()
             Setting.line()
-            displayStats(team: Game.teamOne)
+            displayStats(team: Team.teamOne)
         }
-        if Game.teamTwo.allSatisfy({ character in
+        if Team.teamTwo.allSatisfy({ character in
             character.isAlive == false
         }) {
             Setting.line()
             Setting.line()
             print("\n"
-                  + "\n-------   TEAM ONE WINS !!!!   -------"
+                  + "\n-------   \(Team.teamTwoName.uppercased()) WINS !!!!   -------"
                     + "\n-------   CONGRATULATIONS   -------")
             Setting.line()
             Setting.line()
-            displayStats(team: Game.teamOne)
+            displayStats(team: Team.teamOne)
         }
         else {
             fight()
         }
     }
-    
+    // display the stats of the game
     func displayStats(team: [Character]) {
         Setting.spacer()
         Setting.spacer()
@@ -170,14 +202,15 @@ class Fight: Game {
         Setting.spacer()
         Setting.spacer()
         
+        resetGame()
     }
     
     func resetGame() {
         Game.playerOneIsPlaying = true
         
         // array of all characters by team
-        Game.teamOne.removeAll()
-        Game.teamTwo.removeAll()
+        Team.teamOne.removeAll()
+        Team.teamTwo.removeAll()
         
         // array of characters which will be affected to teamOne or teamTwo depending of the state of the game
         fightingCharacters.removeAll()

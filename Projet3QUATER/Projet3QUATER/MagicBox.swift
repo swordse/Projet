@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MagicBox: Game {
+class MagicBox {
     
     
     func findBox() -> Bool {
