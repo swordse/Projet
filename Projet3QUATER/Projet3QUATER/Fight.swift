@@ -50,7 +50,7 @@ class Fight: Game {
         
         // Player choose his fighter
         Setting.spacer()
-        print("\(Game.playerOneIsPlaying ? "Player ONE:" : "Player TWO:") choose your fighter for this round:"
+        print("Turn: \(numberOfTurn). \(Game.playerOneIsPlaying ? "Player ONE:" : "Player TWO:") choose your fighter for this round:"
         + "\n")
         showCharactersChoice(characters: fightingCharacters)
         fighterIndex = readIndex(characters: fightingCharacters)
@@ -64,7 +64,7 @@ class Fight: Game {
         // if fighter is a mage : choose the teamate to heal
         if fighter.kind == .mage {
             Setting.spacer()
-            print("\(Game.playerOneIsPlaying ? "Player One:" : "Player Two:") choose the character of your team you want to heal:"
+            print("Turn: \(numberOfTurn). \(Game.playerOneIsPlaying ? "Player One:" : "Player Two:") choose the character of your team you want to heal:"
                     + "\n")
             showCharactersChoice(characters: fightingCharacters)
             characterToHealIndex = readIndex(characters: fightingCharacters)
@@ -72,7 +72,7 @@ class Fight: Game {
         } else {
             // if fighter is not a mage: choose the opponent character
             Setting.spacer()
-            print("\(Game.playerOneIsPlaying ? "Player One:" : "Player Two:") choose your opponnent :"
+            print("Turn: \(numberOfTurn).  \(Game.playerOneIsPlaying ? "Player One" : "Player Two:") choose your opponnent :"
                 + "\n")
             showCharactersChoice(characters: opponentCharacters)
             opponentIndex = readIndex(characters: opponentCharacters)
@@ -99,19 +99,21 @@ class Fight: Game {
                 if intChoice > maxNumber || intChoice <= 0 {
                     print("This choice is impossible. Choose again:")
                     readIndex(characters: characters)
+                } else {
+                    index = intChoice - 1
                 }
             
-            switch intChoice {
-            case 1:
-                index = 0
-            case 2:
-                index = 1
-            case 3:
-                index = 2
-            default:
-                print("YOU MUST CHOOSE A NUMBER BETWEEN 1 OR 3.")
-                readIndex(characters: characters)
-            }
+//            switch intChoice {
+//            case 1:
+//                index = 0
+//            case 2:
+//                index = 1
+//            case 3:
+//                index = 2
+//            default:
+//                print("YOU MUST CHOOSE A NUMBER BETWEEN 1 OR 3.")
+//                readIndex(characters: characters)
+//            }
         }
         }
         return index
@@ -162,25 +164,21 @@ class Fight: Game {
     
     // check if a player has won ie. if all characters of a team are dead
     func checkWin() {
-        if Team.teamOne.allSatisfy({ character in
-            character.isAlive == false
-        }) {
+        if Team.teamOne.isEmpty {
             Setting.line()
             Setting.line()
             print("\n"
-                    + "\n-------   \(Team.teamOneName.uppercased()) WINS !!!!   -------"
+                    + "\n-------   \(Team.teamTwoName.uppercased()) WINS !!!!   -------"
                     + "\n-------   CONGRATULATIONS   -------")
             Setting.line()
             Setting.line()
-            displayStats(team: Team.teamOne)
+            displayStats(team: Team.teamTwo)
         }
-        if Team.teamTwo.allSatisfy({ character in
-            character.isAlive == false
-        }) {
+        if Team.teamTwo.isEmpty {
             Setting.line()
             Setting.line()
             print("\n"
-                  + "\n-------   \(Team.teamTwoName.uppercased()) WINS !!!!   -------"
+                  + "\n-------   \(Team.teamOneName.uppercased()) WINS !!!!   -------"
                     + "\n-------   CONGRATULATIONS   -------")
             Setting.line()
             Setting.line()
@@ -194,7 +192,7 @@ class Fight: Game {
     func displayStats(team: [Character]) {
         Setting.spacer()
         Setting.spacer()
-        print("You have killed all the other team's characters in: \(numberOfTurn) turns."
+        print("You have killed all the other team's characters in: \(numberOfTurn - 1) turns."
                 + "\nAfter this fight, here is your team state:")
         for character in team {
             print("Name: \(character.name) - type: \(character.kind) - life: \(character.health) - weapon: \(character.weapon) ")
@@ -216,7 +214,23 @@ class Fight: Game {
         fightingCharacters.removeAll()
         opponentCharacters.removeAll()
         
-        Setting().presentation()
+        print("Do you want to play again?"
+        + "\n1. Yes"
+        + "\n2. No")
+        
+        if let choice = readLine() {
+            if let intChoice = Int(choice) {
+                switch intChoice {
+                case 1:
+                    Setting().presentation()
+                case 2:
+                   break
+                default:
+                    print("You must choose 1 or 2.")
+                }
+        }
+        }
+        
     }
 }
 
