@@ -31,6 +31,7 @@ class Mage: Character {
     
     func heal(teammateToHeal: Character) {
         teammateToHeal.health += self.weapon.rawValue
+        print("\(teammateToHeal.name) has been healed. His health is: \(teammateToHeal.health)")
     }
     
     

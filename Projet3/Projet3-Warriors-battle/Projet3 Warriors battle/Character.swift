@@ -50,8 +50,32 @@ class Character {
         case soldier
     }
     
+    func findBox() -> Bool {
+        var findBox = false
+        let random = Int.random(in: 1...5)
+        if random == 1 || random == 2 || random == 3 {
+            findBox = true
+        } else {
+            findBox = false
+        }
+        return findBox
+    }
+    
     func attack(against opponent: Character) {
+        print("\n" + Constants.separator)
+        if self.findBox() {
+            opponent.health -= self.magicWeapon.rawValue
+            print("You have find a MAGIC BOX which contain a \(self.magicWeapon). It can attack: \(self.magicWeapon.rawValue)")
+            print("\n" + Constants.separator)
+        } else {
         opponent.health -= self.weapon.rawValue
+        }
+        if opponent.isAlive {
+            print("\(opponent.name) has been attacked. His remaining life is: \(opponent.health)")
+        } else {
+            print("Ohh! MY GOSH!!!! \(opponent.name) has been killed!!!")
+        }
+        
     }
     
 }

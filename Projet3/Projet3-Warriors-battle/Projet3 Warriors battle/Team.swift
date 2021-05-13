@@ -20,21 +20,25 @@ class Team {
     func teamChoice() -> Int {
         var playerChoice = 0
         var number = 1
-        var numbers = [1]
+        var numbers: [Int] = []
         for character in characters {
             if character.isAlive {
                 print("\(number). \(character.kind.rawValue.uppercased()): \(character.name)")
                 number += 1
-                numbers.append(number)
+                numbers.append(number - 1)
             }
         }
         repeat {
         if let choice = readLine() {
             if let intChoice = Int(choice) {
-                playerChoice = intChoice
+                if numbers.contains(intChoice){
+                    playerChoice = intChoice
+                } else {
+                    print("Choose an available number:")
+                }
             }
         }
-        } while !numbers.contains(playerChoice)
+        } while numbers.contains(playerChoice) == false
         return playerChoice - 1
     }
     

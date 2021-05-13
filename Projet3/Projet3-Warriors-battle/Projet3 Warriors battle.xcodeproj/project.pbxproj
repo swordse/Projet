@@ -74,14 +74,14 @@
 			isa = PBXGroup;
 			children = (
 				479327052649854B008C8804 /* main.swift */,
+				4793271A2649AAD4008C8804 /* Game.swift */,
 				4793271426498656008C8804 /* Team.swift */,
+				4793271626498B5E008C8804 /* TeamCreator.swift */,
 				4793270C264985BA008C8804 /* Character.swift */,
 				4793270E264985ED008C8804 /* Dwarf.swift */,
 				479327102649860F008C8804 /* Soldier.swift */,
 				4793271226498629008C8804 /* Mage.swift */,
-				4793271626498B5E008C8804 /* TeamCreator.swift */,
 				4793271826499338008C8804 /* Constants.swift */,
-				4793271A2649AAD4008C8804 /* Game.swift */,
 			);
 			path = "Projet3 Warriors battle";
 			sourceTree = "<group>";

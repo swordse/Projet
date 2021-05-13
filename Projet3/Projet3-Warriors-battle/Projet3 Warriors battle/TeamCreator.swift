@@ -30,6 +30,7 @@ class TeamCreator {
     private func createCharacters() -> [Character] {
         var characters = [Character]()
         print("Choose the 3 characters of your team:")
+        print(Constants.separator)
         for i in 0 ..< numberOfCharacters {
             if let character = createCharacter(number: i) {
             characters.append(character)
@@ -65,7 +66,8 @@ class TeamCreator {
     func uniqueTeamName(team: Int) -> String {
         var teamName = ""
         repeat {
-            print("Player \(team + 1): choose a name for your team :")
+            print(Constants.separator)
+            print("PLAYER \(team + 1): choose a name for your team :")
             if let name = readLine() {
                 teamName = name
                 if names.contains(teamName) {
