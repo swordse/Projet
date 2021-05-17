@@ -16,7 +16,7 @@ class Team {
     init(name: String) {
         self.name = name
     }
-    
+    // func to obtain the player's choice among characters
     func teamChoice() -> Int {
         var playerChoice = 0
         var number = 1

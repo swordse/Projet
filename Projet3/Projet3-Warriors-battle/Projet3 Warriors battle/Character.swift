@@ -10,7 +10,6 @@ import Foundation
 
 class Character {
     
-
     var kind: Kind
     var name: String
     var health: Int

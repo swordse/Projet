@@ -13,7 +13,7 @@ class Mage: Character {
         super.init(kind: .mage, name: name, health: 30, weapon: .magicWand, magicWeapon: .superMagicWand)
         
     }
-    
+    // specific action for the mage: he can chooce to heal or to attack
     func mageChoiceHeal() -> Bool {
         var bool = Bool()
         print("Do you want to attack an opponent character or to heal one of your teammate? \n1. Attack. \n2. Heal.")

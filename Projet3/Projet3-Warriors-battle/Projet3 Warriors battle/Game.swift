@@ -102,7 +102,6 @@ class Game {
     }
     
     func resetGame() {
-        
         turn = 0
         print("Do you want to play again?"
                 + "\n1. Yes"

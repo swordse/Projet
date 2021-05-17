@@ -26,7 +26,6 @@ class TeamCreator {
             }
     }
     
-    
     private func createCharacters() -> [Character] {
         var characters = [Character]()
         print("Choose the 3 characters of your team:")
@@ -62,7 +61,7 @@ class TeamCreator {
                 }
     }
     
-    
+    // check if the TeamName is already used
     func uniqueTeamName(team: Int) -> String {
         var teamName = ""
         repeat {
@@ -82,7 +81,7 @@ class TeamCreator {
         return teamName
     }
     
-    
+    // check if the characterName is already used
     func uniqueCharacterName(kind: String) -> String {
         var characterName = ""
         repeat {
