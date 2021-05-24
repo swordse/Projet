@@ -1,33 +1,42 @@
 //
-//  Game.swift
+//  Fight.swift
 //  Projet3UI
 //
-//  Created by Raphaël Goupille on 08/05/2021.
+//  Created by Raphaël Goupille on 10/05/2021.
 //
 
 import Foundation
 
-class Game {
+class Game : TeamFactory {
     
-    static var playerOneIsPlaying = true
+
+    // array of characters which will be affected to teamOne or teamTwo depending of the state of the game
+    var fightingCharacters = [Character]()
+    var opponentCharacters = [Character]()
     
-    func createCharacter(dwarfName: String, mageName: String, soldierName: String, playerOneIsPlaying: Bool) {
+    
+    func fight(teams: [Team], fighterTeamIndex: Int, fighterIndex: Int, opponentIndex: Int) -> Bool {
         
-        let dwarf = Dwarf(name: dwarfName)
-        let mage = Mage(name: mageName)
-        let soldier = Soldier(name: soldierName)
+        var opponentTeamIndex: Int { fighterTeamIndex == 0 ? 1 : 0 }
         
-        if playerOneIsPlaying {
-            Teams.teamOne.append(dwarf)
-            Teams.teamOne.append(mage)
-            Teams.teamOne.append(soldier)
-        } else {
-            Teams.teamOne.append(dwarf)
-            Teams.teamOne.append(mage)
-            Teams.teamOne.append(soldier)
-        }
-        
+        teams[opponentTeamIndex].characters[opponentIndex].health -= teams[fighterTeamIndex].characters[fighterIndex].weapon.rawValue
+           
+        return checkWin(teams: teams, opponentTeamIndex: opponentTeamIndex)
     }
     
-    
+    func checkWin(teams: [Team], opponentTeamIndex: Int) -> Bool {
+        var numberOfDead = 0
+        for character in teams[opponentTeamIndex].characters {
+            if !character.isAlive {
+                numberOfDead += 1
+            }
+        }
+        if numberOfDead == 3 {
+            return true
+        } else {
+        return false
+        }
 }
+
+}
+

@@ -7,16 +7,19 @@
 
 import Foundation
 
-class Team {
-
-    var name: String
+final class Team {
+    
+    // MARK: - Properties
+    
+    let name: String
     var characters = [Character]()
     
     
     init(name: String) {
         self.name = name
     }
-    // func to obtain the player's choice among characters
+    // MARK: - Methods
+    /// func to obtain the player's choice among the array of characters
     func teamChoice() -> Int {
         var playerChoice = 0
         var number = 1
@@ -29,15 +32,17 @@ class Team {
             }
         }
         repeat {
-        if let choice = readLine() {
-            if let intChoice = Int(choice) {
-                if numbers.contains(intChoice){
-                    playerChoice = intChoice
+            if let choice = readLine() {
+                if let intChoice = Int(choice) {
+                    if numbers.contains(intChoice){
+                        playerChoice = intChoice
+                    } else {
+                        print("Choose an available number:")
+                    }
                 } else {
-                    print("Choose an available number:")
+                    print("You must enter a number.")
                 }
             }
-        }
         } while numbers.contains(playerChoice) == false
         return playerChoice - 1
     }

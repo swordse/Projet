@@ -1,13 +1,13 @@
 //
-//  FightPlayer2ViewController.swift
+//  Fight2ViewController.swift
 //  Projet3UI
 //
-//  Created by Raphaël Goupille on 15/05/2021.
+//  Created by Raphaël Goupille on 17/05/2021.
 //
 
 import UIKit
 
-class FightPlayer2ViewController: UIViewController {
+class Fight2ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

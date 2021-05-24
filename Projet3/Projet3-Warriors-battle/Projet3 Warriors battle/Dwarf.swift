@@ -2,11 +2,11 @@
 
 import Foundation
 
-class Dwarf: Character {
+final class Dwarf: Character {
     
     
     init(name: String) {
-        super.init(kind: .dwarf, name: name, health: 50, weapon: .axe, magicWeapon: .superAxe)
+        super.init(kind: .dwarf, name: name, health: 30, weapon: .axe)
     }
 
 }

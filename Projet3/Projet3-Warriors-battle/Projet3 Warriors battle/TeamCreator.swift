@@ -8,14 +8,18 @@
 import Foundation
 
 
-class TeamCreator {
+final class TeamCreator {
     
-    var numberOfTeam = 2
-    var numberOfCharacters = 3
+    // MARK: - Properties
+    
+    let numberOfTeam = 2
+    let numberOfCharacters = 3
     var names = [String]()
     var teams = [Team]()
     
-    func createTeam() {
+    // MARK: Methods
+    
+    func createTeams() {
         for i in 0 ..< numberOfTeam {
             let team = Team(name: uniqueTeamName(team: i))
             team.characters = createCharacters()
@@ -62,17 +66,16 @@ class TeamCreator {
     }
     
     // check if the TeamName is already used
-    func uniqueTeamName(team: Int) -> String {
+    private func uniqueTeamName(team: Int) -> String {
         var teamName = ""
         repeat {
             print(Constants.separator)
             print("PLAYER \(team + 1): choose a name for your team :")
             if let name = readLine() {
-                teamName = name
-                if names.contains(teamName) {
+                if names.contains(name) {
                     print("This name is already used. Please choose another one:")
-                    teamName = ""
                 } else {
+                    teamName = name
                     names.append(teamName)
                     return teamName
                 }
@@ -82,7 +85,7 @@ class TeamCreator {
     }
     
     // check if the characterName is already used
-    func uniqueCharacterName(kind: String) -> String {
+    private func uniqueCharacterName(kind: String) -> String {
         var characterName = ""
         repeat {
             print("Choose a name for your \(kind) :")

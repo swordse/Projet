@@ -7,10 +7,10 @@
 
 import Foundation
 
-class Soldier: Character {
+final class Soldier: Character {
     
     init(name: String) {
-        super.init(kind: .soldier, name: name, health: 70, weapon: .sword, magicWeapon: .superSword)
+        super.init(kind: .soldier, name: name, health: 20, weapon: .sword)
     }
     
     
