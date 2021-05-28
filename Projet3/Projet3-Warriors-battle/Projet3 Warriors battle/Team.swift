@@ -26,9 +26,15 @@ final class Team {
         var numbers: [Int] = []
         for character in characters {
             if character.isAlive {
-                print("\(number). \(character.kind.rawValue.uppercased()): \(character.name)")
-                number += 1
-                numbers.append(number - 1)
+                if character is Mage {
+                    print("\(number). \(character.kind.rawValue.uppercased()): \(character.name), health: \(character.health), attack points: \(character.weapon.rawValue), healing points: \(character.weapon.rawValue)")
+                    numbers.append(number)
+                    number += 1
+                } else {
+                    print("\(number). \(character.kind.rawValue.uppercased()): \(character.name), health: \(character.health), attack points: \(character.weapon.rawValue)")
+                    numbers.append(number)
+                    number += 1
+                }
             }
         }
         repeat {

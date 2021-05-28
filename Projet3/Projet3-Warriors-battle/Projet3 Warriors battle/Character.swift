@@ -44,13 +44,13 @@ class Character {
     // MARK: - Methods
     
     // randomly find a box which contains a magic weapon
-    private func findBox() {
+    func findBox() {
         let random = Int.random(in: 1...5)
-        if random == 1 || random == 2 || random == 3 || random == 4 {
+        if random == 1 || random == 2 || random == 3 {
             if self is Mage {
                 self.weapon = .superMagicWand
                 print("\n" + Constants.separator)
-                print("      🎁 You have found a MAGIC BOX which contains a \(self.weapon) 🪄. It can attack: \(self.weapon.rawValue)")
+                print("      🎁 You have found a MAGIC BOX which contains a \(self.weapon) 🪄. It can attack or heal: \(self.weapon.rawValue)")
                 print("\n" + Constants.separator)
             }
             if self is Dwarf {

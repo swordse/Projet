@@ -24,9 +24,6 @@ final class TeamCreator {
             let team = Team(name: uniqueTeamName(team: i))
             team.characters = createCharacters()
             teams.append(team)
-            for team in teams {
-                print(team.name)
-                }
             }
     }
     
@@ -49,6 +46,8 @@ final class TeamCreator {
             if let choice = readLine(){
                 if let intChoice = Int(choice) {
                     playerChoice = intChoice
+                } else {
+                    print("You have to choose a number.")
                 }
             }
         } while playerChoice != 1 && playerChoice != 2 && playerChoice != 3

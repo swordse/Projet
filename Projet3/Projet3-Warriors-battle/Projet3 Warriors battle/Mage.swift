@@ -30,7 +30,9 @@ final class Mage: Character {
     }
     
     func heal(teammateToHeal: Character) {
+        self.findBox()
         teammateToHeal.health += self.weapon.rawValue
+        print(Constants.separator)
         print("\(teammateToHeal.name) has been healed. His health is: \(teammateToHeal.health)")
     }
     

@@ -13,9 +13,10 @@ final class Game {
     var opponentTeamIndex: Int { turn % 2 == 0 ? 1 : 0 }
     // keep track of all the dead characters for the end game stats
     var deadCharacters = [Character]()
+    
     // MARK: - Methods
     
-    func start() {
+   func start() {
         print(Constants.presentation)
         teamCreator.createTeams()
         teams = teamCreator.teams
@@ -23,6 +24,9 @@ final class Game {
     }
     
     private func fight() {
+        print(Constants.separator + "\n")
+        print("GOOD! You have created your teams. \n⚔️⚔️⚔️⚔️LET'S FIGHT!!!⚔️⚔️⚔️⚔️")
+        
         while true {
             for i in 0 ..< numberOfTeams {
                 
@@ -79,8 +83,9 @@ final class Game {
             if teams[i].characters.isEmpty {
                 var winnerIndex: Int { i % 2 == 0 ? 1 : 0 }
                 print(Constants.separator)
-                print("\n        🏆🏆 \(teams[winnerIndex].name.uppercased()) WINS!!!!!!!🏆🏆\n" )
+                print("\n        🏆🏆🏆 \(teams[winnerIndex].name.uppercased()) WINS!!!!!!!🏆🏆🏆\n" )
                 print(Constants.separator)
+                turn += 1
                 displayStats(team: teams[winnerIndex])
                 win = true
             }
@@ -117,7 +122,7 @@ final class Game {
                 case 1:
                     start()
                 case 2:
-                    print("Goodbye")
+                    print("Thanks for playing. Hope to see you soon.\nGoodbye")
                 default:
                     print("You must choose 1 or 2.")
                 }
